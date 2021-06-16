@@ -1,9 +1,13 @@
-resource "aws_s3_bucket" "b" {
-  bucket = "my-tf-test-bucket"
+module "s3_bucket" {
+  source = "terraform-aws-modules/s3-bucket/aws"
+
+  bucket = "s3-tf-example-versioning"
   acl    = "private"
 
-  tags = {
-    Name        = "My bucket"
-    Environment = "Dev"
-  }
+  versioning_inputs = [
+    {
+      enabled = true
+      mfa_delete = null
+    },
+  ]
 }
